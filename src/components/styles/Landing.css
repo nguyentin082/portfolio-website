@@ -3,9 +3,9 @@
     display: none;
 }
 
-/* Remove mobile photo and ensure 3D character is always hidden on mobile */
+/* Portrait is desktop only; mobile uses the static .mobile-photo */
 @media only screen and (max-width: 768px) {
-    .character-model {
+    .portrait-container {
         display: none !important;
     }
 
@@ -245,85 +245,33 @@
     position: relative;
 }
 
-.character-rim {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    z-index: 1;
-    background-color: #f59bf8;
-    transform: translate(-50%, 36%) scaleX(1.4);
-    box-shadow: inset 66px 35px 85px 0px rgba(85, 0, 255, 0.65);
-    filter: blur(50px);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 100%) scale(1.4);
-    opacity: 0;
-}
-
-.character-model {
-    height: 80%;
-    height: 80vh;
-    position: absolute;
-    max-width: 1920px;
-    max-height: 1080px;
-    transform: translateX(-50%);
-    width: 100%;
-    left: 50%;
-    z-index: 0;
-    bottom: 50px;
-    pointer-events: inherit;
-}
-
-.character-model::after {
-    content: '';
-    width: 100vw;
-    height: 250px;
-    background-image: linear-gradient(
-        to bottom,
-        transparent,
-        var(--backgroundColor) 70%
-    );
-    bottom: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9;
-    position: absolute;
-}
-
-.character-model::before {
-    content: '';
-    width: 100vw;
-    height: 700px;
-    background-color: var(--backgroundColor);
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9;
-    position: absolute;
-}
-
-.character-loaded .character-rim {
-    animation: backlight 3s forwards;
-    animation-delay: 0.3s;
-    opacity: 0;
-}
-
-.character-model canvas {
-    position: relative;
+.portrait-container {
+    position: fixed;
+    inset: 0;
+    z-index: 11;
     pointer-events: none;
-    z-index: 2;
 }
 
-.character-hover {
+.portrait-model {
     position: absolute;
-    width: 280px;
-    height: 280px;
-    top: 50%;
+    /* Bottom-anchored: the box is taller than the viewport, so its bottom
+       edge always meets the bottom of the screen and the cropped shoulders
+       fall outside the viewport — no fade needed. */
+    bottom: 0;
     left: 50%;
-    z-index: 3;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
+    /* Three constraints at once:
+       83vw-133px  keeps the face on screen after the left shift
+       103vh-25px  keeps the top of the head (at 6.8%) from being cut
+       1000px      upper cap, so it does not balloon on very wide screens */
+    width: min(1000px, 83vw - 133px, 103vh - 25px);
+    height: min(1000px, 83vw - 133px, 103vh - 25px);
+    opacity: 0;
+}
+
+.portrait-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .landing-intro {
@@ -434,10 +382,6 @@ h2.landing-info-h2 {
         display: block;
     }
 
-    .character-model {
-        z-index: 0;
-    }
-
     .landing-info h3 {
         font-size: 18px;
     }
@@ -462,10 +406,6 @@ h2.landing-info-h2 {
 }
 
 @media screen and (min-width: 768px) {
-    .character-model {
-        height: 80vh;
-    }
-
     .landing-intro h2 {
         font-size: 25px;
     }
@@ -490,18 +430,6 @@ h2.landing-info-h2 {
 }
 
 @media screen and (min-width: 1025px) {
-    .character-model {
-        height: 100vh;
-        bottom: 0;
-        z-index: 11;
-        position: fixed;
-    }
-
-    .character-model::after,
-    .character-model::before {
-        display: none;
-    }
-
     .landing-intro {
         top: 40%;
         left: auto;

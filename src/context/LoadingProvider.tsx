@@ -17,8 +17,10 @@ export const LoadingContext = createContext<LoadingType | null>(null);
 
 export const LoadingProvider = ({ children }: PropsWithChildren) => {
     const [isLoading, setIsLoading] = useState(() => {
-        // Skip loading on mobile
-        if (window.innerWidth <= 768) return false;
+        // Must match where MainContainer mounts Portrait: below 1024px no
+        // portrait loads, so nothing drives the progress and the loading
+        // screen would hang at 0% forever.
+        if (window.innerWidth <= 1024) return false;
         return true;
     });
     const [loading, setLoading] = useState(0);
@@ -29,8 +31,8 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
         setLoading,
     };
     useEffect(() => {
-        // Auto-start animations on mobile since there's no 3D model
-        if (window.innerWidth <= 768) {
+        // No portrait here, so run the intro animation directly
+        if (window.innerWidth <= 1024) {
             import('../components/utils/initialFX').then((module) => {
                 if (module.initialFX) {
                     setTimeout(() => {

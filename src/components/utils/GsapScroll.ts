@@ -1,16 +1,41 @@
-import * as THREE from 'three';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export function setCharTimeline(
-    character: THREE.Object3D<THREE.Object3DEventMap> | null,
-    camera: THREE.PerspectiveCamera,
-) {
-    let intensity: number = 0;
-    setInterval(() => {
-        intensity = Math.random();
-    }, 200);
+gsap.registerPlugin(ScrollTrigger);
+
+export type DrawFrame = (index: number) => void;
+
+/** Gap between the portrait's right edge and the left edge of .about-me. */
+const ABOUT_GAP = 40;
+
+/**
+ * ScrollTriggers owned by this file. On rebuild (resize) only these may be
+ * killed. Killing every trigger would also destroy the ones setSplitText
+ * creates, which hold .title/.para at autoAlpha 0 until they fire — every
+ * heading and paragraph on the page would disappear.
+ */
+export const OWNED_TRIGGERS = [
+    'portrait-landing',
+    'portrait-about',
+    'portrait-exit',
+    'portrait-mobile',
+    'career',
+];
+
+/**
+ * Scrubs the portrait frame sequence against scroll.
+ *
+ *   .landing-section  frames 0 -> last, and slides left
+ *   .about-section    holds the last frames, face turned toward the copy
+ *   .whatIDO          fades out before Career & Experience takes over
+ */
+export function setPortraitTimeline(draw: DrawFrame, count: number) {
+    const state = { frame: 0 };
+    const render = () => draw(state.frame);
+
     const tl1 = gsap.timeline({
         scrollTrigger: {
+            id: 'portrait-landing',
             trigger: '.landing-section',
             start: 'top top',
             end: 'bottom top',
@@ -20,6 +45,7 @@ export function setCharTimeline(
     });
     const tl2 = gsap.timeline({
         scrollTrigger: {
+            id: 'portrait-about',
             trigger: '.about-section',
             start: 'center 55%',
             end: 'bottom top',
@@ -27,135 +53,75 @@ export function setCharTimeline(
             invalidateOnRefresh: true,
         },
     });
-    const tl3 = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.whatIDO',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-            invalidateOnRefresh: true,
-        },
-    });
-    let screenLight: any, monitor: any;
-    character?.children.forEach((object: any) => {
-        if (object.name === 'Plane004') {
-            object.children.forEach((child: any) => {
-                child.material.transparent = true;
-                child.material.opacity = 0;
-                if (child.material.name === 'Material.027') {
-                    monitor = child;
-                    child.material.color.set('#FFFFFF');
-                }
-            });
-        }
-        if (object.name === 'screenlight') {
-            object.material.transparent = true;
-            object.material.opacity = 0;
-            object.material.emissive.set('#C8BFFF');
-            gsap.timeline({ repeat: -1, repeatRefresh: true }).to(
-                object.material,
-                {
-                    emissiveIntensity: () => intensity * 8,
-                    duration: () => Math.random() * 0.6,
-                    delay: () => Math.random() * 0.1,
-                },
-            );
-            screenLight = object;
-        }
-    });
-    let neckBone = character?.getObjectByName('spine005');
+
     if (window.innerWidth > 1024) {
-        if (character) {
-            tl1.fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
-                .to(camera.position, { z: 22 }, 0)
-                .fromTo(
-                    '.character-model',
-                    { x: 0 },
-                    { x: '-25%', duration: 1 },
-                    0,
-                )
-                .to('.landing-container', { opacity: 0, duration: 0.4 }, 0)
-                .to('.landing-container', { y: '40%', duration: 0.8 }, 0)
-                .fromTo('.about-me', { y: '-50%' }, { y: '0%' }, 0);
+        gsap.set('.portrait-model', { xPercent: -50 });
 
-            tl2.to(
-                camera.position,
-                { z: 75, y: 8.4, duration: 6, delay: 2, ease: 'power3.inOut' },
+        // The box scales with the viewport, so measure its real width.
+        // .about-me starts at the container midpoint, so shifting left by
+        // half the box plus a gap is just enough to clear it.
+        const model = document.querySelector<HTMLElement>('.portrait-model');
+        const shiftX = -((model?.offsetWidth ?? 924) / 2 + ABOUT_GAP);
+
+        // Run the whole head turn while scrolling past landing, so the
+        // portrait is already on its last frames when .about-section arrives.
+        tl1.fromTo(
+            state,
+            { frame: 0 },
+            { frame: count - 1, duration: 1, ease: 'none', onUpdate: render },
+            0,
+        )
+            .to('.landing-container', { opacity: 0, duration: 0.4 }, 0)
+            .to('.landing-container', { y: '40%', duration: 0.8 }, 0)
+            // Slide left during the landing scroll, starting as the landing
+            // text fades, so the space is already clear when About arrives.
+            .to(
+                '.portrait-model',
+                { x: shiftX, duration: 0.65, delay: 0.35, ease: 'none' },
                 0,
             )
-                .to('.about-section', { y: '30%', duration: 6 }, 0)
-                .to('.about-section', { opacity: 0, delay: 3, duration: 2 }, 0)
-                .fromTo(
-                    '.character-model',
-                    { pointerEvents: 'inherit' },
-                    { pointerEvents: 'none', x: '-12%', delay: 2, duration: 5 },
-                    0,
-                )
-                .to(
-                    character.rotation,
-                    { y: 0.92, x: 0.12, delay: 3, duration: 3 },
-                    0,
-                )
-                .to(neckBone!.rotation, { x: 0.6, delay: 2, duration: 3 }, 0)
-                .to(
-                    monitor.material,
-                    { opacity: 1, duration: 0.8, delay: 3.2 },
-                    0,
-                )
-                .to(
-                    screenLight.material,
-                    { opacity: 1, duration: 0.8, delay: 4.5 },
-                    0,
-                )
-                .fromTo(
-                    '.what-box-in',
-                    { display: 'none' },
-                    { display: 'flex', duration: 0.1, delay: 6 },
-                    0,
-                )
-                .fromTo(
-                    monitor.position,
-                    { y: -10, z: 2 },
-                    { y: 0, z: 0, delay: 1.5, duration: 3 },
-                    0,
-                )
-                .fromTo(
-                    '.character-rim',
-                    { opacity: 1, scaleX: 1.4 },
-                    { opacity: 0, scale: 0, y: '-70%', duration: 5, delay: 2 },
-                    0.3,
-                );
+            .fromTo('.about-me', { y: '-50%' }, { y: '0%' }, 0);
 
-            tl3.fromTo(
-                '.character-model',
-                { y: '0%' },
-                { y: '-100%', duration: 4, ease: 'none', delay: 1 },
-                0,
-            )
-                .fromTo('.whatIDO', { y: 0 }, { y: '15%', duration: 2 }, 0)
-                .to(character.rotation, { x: -0.04, duration: 2, delay: 1 }, 0);
-        }
+        tl2.to('.about-section', { y: '30%', duration: 9 }, 0).to(
+            '.about-section',
+            { opacity: 0, delay: 4, duration: 3 },
+            0,
+        );
+
+        // Fade out before Career & Experience becomes the main content: runs
+        // from .whatIDO filling the screen until it is pushed to mid-screen.
+        gsap.timeline({
+            scrollTrigger: {
+                id: 'portrait-exit',
+                trigger: '.whatIDO',
+                start: 'top top',
+                end: 'bottom center',
+                scrub: true,
+                invalidateOnRefresh: true,
+            },
+        }).to('.portrait-model', {
+            opacity: 0,
+            filter: 'blur(14px)',
+            ease: 'power2.in',
+            duration: 1,
+        });
     } else {
-        if (character) {
-            const tM2 = gsap.timeline({
-                scrollTrigger: {
-                    trigger: '.what-box-in',
-                    start: 'top 70%',
-                    end: 'bottom top',
-                },
-            });
-            tM2.to(
-                '.what-box-in',
-                { display: 'flex', duration: 0.1, delay: 0 },
-                0,
-            );
-        }
+        const tM2 = gsap.timeline({
+            scrollTrigger: {
+                id: 'portrait-mobile',
+                trigger: '.what-box-in',
+                start: 'top 70%',
+                end: 'bottom top',
+            },
+        });
+        tM2.to('.what-box-in', { display: 'flex', duration: 0.1, delay: 0 }, 0);
     }
 }
 
 export function setAllTimeline() {
     const careerTimeline = gsap.timeline({
         scrollTrigger: {
+            id: 'career',
             trigger: '.career-section',
             start: 'top 50%',
             end: 'bottom 30%',

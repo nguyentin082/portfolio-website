@@ -452,3 +452,29 @@
         line-height: 6.8rem;
     }
 }
+
+@media only screen and (min-width: 1025px) {
+    /* The portrait fills the left half of the screen at this width. Stack
+       the heading and the cards into one right-hand column instead of two
+       side-by-side columns, so both fit in the space that is left without
+       pushing the portrait further left (which would move the face off
+       screen). */
+    .whatIDO {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .what-box {
+        width: auto;
+    }
+
+    .what-box h2 {
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .what-box-in {
+        margin-left: 0;
+    }
+}
