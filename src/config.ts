@@ -19,7 +19,7 @@ export const config = {
     experiences: [
         {
             position: 'AI Engineer & Full-Stack Developer',
-            company: 'WATA Software',
+            company: 'WATA Software Co., Ltd.',
             period: '2025 - Present',
             location: 'Vietnam',
             description:
