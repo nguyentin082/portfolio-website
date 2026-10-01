@@ -1,7 +1,7 @@
-import Scene from "./Scene";
+import Scene from './Scene';
 
 const CharacterModel = () => {
-  return <Scene />;
+    return <Scene />;
 };
 
 export default CharacterModel;
