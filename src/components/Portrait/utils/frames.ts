@@ -14,28 +14,35 @@ export async function loadManifest(): Promise<PortraitManifest> {
 }
 
 /**
- * Each file is "packed": RGB on the left half, alpha as grayscale on the
- * right. This lets both halves be lossy-compressed (~12 KB/frame against
- * ~32 KB for WebP RGBA, since libwebp always encodes alpha losslessly).
+ * Colour and matte ship as two separate lossy files (f{i}.webp / a{i}.webp)
+ * and are recombined here. Encoding the matte as real WebP alpha would force
+ * libwebp's lossless alpha path (~50 KB/frame against ~11 KB here), and
+ * giving the near-binary matte its own low quality leaves the bitrate for
+ * the face.
  */
-async function decodePacked(
-    url: string,
+async function decodeFrame(
+    rgbUrl: string,
+    alphaUrl: string,
     size: number,
     ctx: CanvasRenderingContext2D,
 ): Promise<ImageBitmap> {
-    const res = await fetch(url);
-    const packed = await createImageBitmap(await res.blob());
+    const [colorBmp, alphaBmp] = await Promise.all(
+        [rgbUrl, alphaUrl].map(async (url) =>
+            createImageBitmap(await (await fetch(url)).blob()),
+        ),
+    );
 
     // Everything from here to the second getImageData is synchronous, so
     // several workers can share one canvas safely.
     ctx.clearRect(0, 0, size, size);
-    ctx.drawImage(packed, 0, 0, size, size, 0, 0, size, size);
+    ctx.drawImage(colorBmp, 0, 0);
     const rgb = ctx.getImageData(0, 0, size, size);
 
     ctx.clearRect(0, 0, size, size);
-    ctx.drawImage(packed, size, 0, size, size, 0, 0, size, size);
+    ctx.drawImage(alphaBmp, 0, 0);
     const matte = ctx.getImageData(0, 0, size, size);
-    packed.close();
+    colorBmp.close();
+    alphaBmp.close();
 
     const px = rgb.data;
     const am = matte.data;
@@ -63,8 +70,13 @@ export async function loadFrames(
     const worker = async () => {
         while (next < count) {
             const i = next++;
-            const name = `f${String(i).padStart(3, '0')}.webp`;
-            frames[i] = await decodePacked(`/portrait/${name}`, size, ctx);
+            const n = String(i).padStart(3, '0');
+            frames[i] = await decodeFrame(
+                `/portrait/f${n}.webp`,
+                `/portrait/a${n}.webp`,
+                size,
+                ctx,
+            );
             onProgress(++done, count);
         }
     };

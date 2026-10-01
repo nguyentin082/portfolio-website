@@ -1,1 +1,1 @@
-{"count": 120, "size": 960, "turnStart": 40, "pattern": "f{i}.webp"}
+{"count": 120, "size": 1080, "turnStart": 40, "rgbPattern": "f{i}.webp", "alphaPattern": "a{i}.webp"}
