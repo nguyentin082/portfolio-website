@@ -37,11 +37,6 @@ const techStack: TechItem[][] = [
             url: 'https://isocpp.org',
         },
         {
-            name: 'Kotlin',
-            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg',
-            url: 'https://kotlinlang.org',
-        },
-        {
             name: 'HTML',
             icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
             url: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
@@ -65,6 +60,11 @@ const techStack: TechItem[][] = [
             name: 'Next.js',
             icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
             url: 'https://nextjs.org',
+        },
+        {
+            name: 'NestJS',
+            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg',
+            url: 'https://nestjs.com',
         },
         {
             name: 'Bootstrap',
@@ -219,9 +219,9 @@ const techStack: TechItem[][] = [
             url: 'https://postman.com',
         },
         {
-            name: 'Photoshop',
-            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-original.svg',
-            url: 'https://adobe.com/products/photoshop',
+            name: 'NGINX',
+            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg',
+            url: 'https://nginx.org',
         },
     ],
     // Row 6 - 2 items (tip of pyramid)
@@ -232,9 +232,9 @@ const techStack: TechItem[][] = [
             url: 'https://huggingface.co',
         },
         {
-            name: 'MS Office',
-            icon: 'https://img.icons8.com/color/48/microsoft-office-2019.png',
-            url: 'https://www.microsoft.com/microsoft-365',
+            name: 'LangChain',
+            icon: 'https://cdn.simpleicons.org/langchain/white',
+            url: 'https://langchain.com',
         },
     ],
 ];
