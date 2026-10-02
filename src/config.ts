@@ -20,6 +20,7 @@ export const config = {
         {
             position: 'AI Engineer & Full-Stack Developer',
             company: 'WATA Software Co., Ltd.',
+            logo: '/images/watasoftware.png',
             period: '2025 - Present',
             location: 'Vietnam',
             description:
@@ -35,6 +36,7 @@ export const config = {
         {
             position: 'Artificial Intelligence Software Engineer',
             company: 'Jumpstart Disruptive Innovations Pte. Ltd. (TechJDI)',
+            logo: '/images/jdi.png',
             period: '2025',
             location: 'Vietnam',
             description:
@@ -58,6 +60,7 @@ export const config = {
             position: 'Software Engineer Intern',
             company:
                 'Vietnam Posts and Telecommunications Group (VNPT) Ho Chi Minh City - IT Center',
+            logo: '/images/vnpt.png',
             period: '2024',
             location: 'Vietnam',
             description:

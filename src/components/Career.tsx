@@ -25,8 +25,19 @@ const Career = () => {
                         <div key={index} className="career-info-box">
                             <div className="career-info-in">
                                 <div className="career-role">
-                                    <h4>{exp.position}</h4>
-                                    <h5>{exp.company}</h5>
+                                    {exp.logo && (
+                                        <span className="career-logo">
+                                            <img
+                                                src={exp.logo}
+                                                alt={`${exp.company} logo`}
+                                                loading="lazy"
+                                            />
+                                        </span>
+                                    )}
+                                    <div className="career-role-text">
+                                        <h4>{exp.position}</h4>
+                                        <h5>{exp.company}</h5>
+                                    </div>
                                 </div>
                                 <h3>{getDisplayYear(exp.period)}</h3>
                             </div>
