@@ -127,6 +127,17 @@ export const config = {
                 'AI system for B2B with integrated solutions: data analysis assistant, face recognition, retirement planning, and real estate advisor. Includes full-stack frontend/backend, admin UI, and supports user interactions via Email, Telegram, and web.',
             link: '',
         },
+        {
+            id: 5,
+            title: 'Machine Learning-Based CSI Feedback With Variable Length in FDD Massive MIMO',
+            category: 'Machine Learning / Research',
+            technologies:
+                'TensorFlow, Keras, PCA, K-means Clustering, AutoEncoder, Matplotlib',
+            image: '/images/csi-feedback.png',
+            description:
+                'Optimized CSI feedback in FDD Massive MIMO using PCA-KMeans and compared it with Autoencoder-based learning to reduce overhead while preserving accuracy.',
+            link: '',
+        },
     ],
     contact: {
         email: 'nguyentin082@gmail.com',
