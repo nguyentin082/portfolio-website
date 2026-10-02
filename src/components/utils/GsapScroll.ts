@@ -99,12 +99,19 @@ export function setPortraitTimeline(draw: DrawFrame, count: number) {
                 scrub: true,
                 invalidateOnRefresh: true,
             },
-        }).to('.portrait-model', {
-            opacity: 0,
-            filter: 'blur(14px)',
-            ease: 'power2.in',
-            duration: 1,
-        });
+        }).fromTo(
+            '.portrait-model',
+            // Explicit start values: a plain .to() would record whatever the
+            // element holds at the first render, which on a reload past
+            // .whatIDO is the faded-out state, leaving it hidden for good.
+            { opacity: 1, filter: 'blur(0px)' },
+            {
+                opacity: 0,
+                filter: 'blur(14px)',
+                ease: 'power2.in',
+                duration: 1,
+            },
+        );
     } else {
         const tM2 = gsap.timeline({
             scrollTrigger: {

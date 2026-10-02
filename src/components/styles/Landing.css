@@ -250,6 +250,9 @@
     inset: 0;
     z-index: 11;
     pointer-events: none;
+    /* Revealed by the intro fade once loading finishes. Kept off
+       .portrait-model so it never fights the scroll-driven exit fade. */
+    opacity: 0;
 }
 
 .portrait-model {
@@ -265,7 +268,6 @@
        1000px      upper cap, so it does not balloon on very wide screens */
     width: min(1000px, 83vw - 133px, 103vh - 25px);
     height: min(1000px, 83vw - 133px, 103vh - 25px);
-    opacity: 0;
 }
 
 .portrait-canvas {

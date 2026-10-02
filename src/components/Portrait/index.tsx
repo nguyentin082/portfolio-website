@@ -23,7 +23,6 @@ const Portrait = () => {
         let disposed = false;
         let frames: ImageBitmap[] = [];
         let drawn = -1;
-        let introDone = false;
 
         const progress = setProgress((value) => setLoading(value));
 
@@ -39,9 +38,6 @@ const Portrait = () => {
             // or they stack up. Only kill our own — the text reveal, work and
             // contact triggers must survive.
             OWNED_TRIGGERS.forEach((id) => ScrollTrigger.getById(id)?.kill());
-            if (introDone) {
-                gsap.set('.portrait-model', { opacity: 1 });
-            }
             setPortraitTimeline(draw, count);
             setAllTimeline();
             ScrollTrigger.refresh();
@@ -67,16 +63,28 @@ const Portrait = () => {
             onResize = () => rebuild(manifest.count);
             window.addEventListener('resize', onResize);
 
+            // Images and fonts above the portrait triggers can still shift
+            // the layout after the first refresh (e.g. a reload restored
+            // mid-page), so measure the trigger positions again once settled.
+            const settle = () => !disposed && ScrollTrigger.refresh();
+            document.fonts.ready.then(settle);
+            if (document.readyState === 'complete') settle();
+            else window.addEventListener('load', settle, { once: true });
+
             progress.loaded().then(() => {
-                introDone = true;
+                // The intro runs on the container, the scroll exit on
+                // .portrait-model. Their opacities multiply, so the intro
+                // cannot un-hide a portrait the scroll position has faded out
+                // (reloading with the scroll restored past .whatIDO).
                 gsap.fromTo(
-                    '.portrait-model',
+                    '.portrait-container',
                     { opacity: 0, filter: 'blur(14px)' },
                     {
                         opacity: 1,
                         filter: 'blur(0px)',
                         duration: 1.2,
                         ease: 'power2.out',
+                        clearProps: 'filter',
                     },
                 );
             });
