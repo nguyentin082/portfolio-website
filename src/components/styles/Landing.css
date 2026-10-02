@@ -334,11 +334,12 @@
     flex-wrap: nowrap;
     text-transform: uppercase;
     letter-spacing: 2px;
-    white-space: nowrap;
+    /* Wrap at the space when the column is too narrow for one line */
+    white-space: normal;
 }
 
 .landing-h2-info {
-    white-space: nowrap;
+    white-space: normal;
 }
 
 .landing-h2-info-1 {
@@ -448,6 +449,15 @@ h2.landing-info-h2 {
         right: auto;
         left: 66%;
     }
+
+    /* Only ~30% of the width is left of the info column: scale with viewport */
+    .landing-info h2 {
+        font-size: min(45px, 4vw);
+    }
+
+    .landing-h2-info {
+        line-height: 0.95;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -484,7 +494,7 @@ h2.landing-info-h2 {
     }
 
     .landing-info h2 {
-        font-size: 65px;
+        font-size: min(65px, 4vw);
         line-height: 62px;
     }
 
