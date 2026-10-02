@@ -1,4 +1,5 @@
 import {
+    FaFacebookF,
     FaGithub,
     FaInstagram,
     FaLinkedinIn,
@@ -85,6 +86,15 @@ const SocialIcons = () => {
                         rel="noopener noreferrer"
                     >
                         <FaXTwitter />
+                    </a>
+                </span>
+                <span>
+                    <a
+                        href={config.contact.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <FaFacebookF />
                     </a>
                 </span>
                 <span>
