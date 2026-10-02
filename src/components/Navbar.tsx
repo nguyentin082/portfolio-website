@@ -33,14 +33,14 @@ const Navbar = () => {
         requestAnimationFrame(raf);
 
         // Handle navigation links
-        let links = document.querySelectorAll('.header ul a');
+        const links = document.querySelectorAll('.header ul a');
         links.forEach((elem) => {
-            let element = elem as HTMLAnchorElement;
+            const element = elem as HTMLAnchorElement;
             element.addEventListener('click', (e) => {
                 if (window.innerWidth > 1024) {
                     e.preventDefault();
-                    let elem = e.currentTarget as HTMLAnchorElement;
-                    let section = elem.getAttribute('data-href');
+                    const elem = e.currentTarget as HTMLAnchorElement;
+                    const section = elem.getAttribute('data-href');
                     if (section && lenis) {
                         const target = document.querySelector(
                             section,
@@ -69,7 +69,7 @@ const Navbar = () => {
         <>
             <div className="header">
                 <a href="/#" className="navbar-title" data-cursor="disable">
-                    RH
+                    SniT
                 </a>
                 <a
                     href="mailto:nguyentin082@gmail.com"
