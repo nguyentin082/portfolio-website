@@ -69,7 +69,7 @@ const Navbar = () => {
         <>
             <div className="header">
                 <a href="/#" className="navbar-title" data-cursor="disable">
-                    SniT
+                    <img src="/images/logoSniT.png" alt="SniT" className="site-logo" />
                 </a>
                 <a
                     href="mailto:nguyentin082@gmail.com"

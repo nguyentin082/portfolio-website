@@ -201,3 +201,28 @@ body {
         font-size: 40px;
     }
 }
+
+.site-logo {
+    display: block;
+    height: 32px;
+    width: auto;
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+a:hover > .site-logo {
+    transform: scale(1.04);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 8px rgba(194, 164, 255, 0.35));
+}
+@media only screen and (min-width: 500px) {
+    .site-logo {
+        height: 40px;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .site-logo {
+        height: 56px;
+    }
+}
