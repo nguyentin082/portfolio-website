@@ -116,6 +116,17 @@ export const config = {
                 'Full observability stack deployed with one Docker Compose command: host and container metrics (Node Exporter, cAdvisor → Prometheus), centralized logs from Docker containers, /var/log and the systemd journal (Promtail → Loki), and auto-provisioned Grafana dashboards. A lightweight agent compose file onboards remote servers for multi-server monitoring.',
             link: '',
         },
+        {
+            id: 4,
+            title: 'Artificial Intelligence Solution',
+            category: 'AI / Full-Stack',
+            technologies:
+                'LangChain, InsightFace, PandasAI, NextJS, NestJS, MongoDB, AWS S3, Milvus',
+            image: '/images/ai-solution.png',
+            description:
+                'AI system for B2B with integrated solutions: data analysis assistant, face recognition, retirement planning, and real estate advisor. Includes full-stack frontend/backend, admin UI, and supports user interactions via Email, Telegram, and web.',
+            link: '',
+        },
     ],
     contact: {
         email: 'nguyentin082@gmail.com',
