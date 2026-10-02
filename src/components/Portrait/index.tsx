@@ -41,8 +41,11 @@ const Portrait = () => {
             setPortraitTimeline(draw, count);
             setAllTimeline();
             ScrollTrigger.refresh();
+            // Match the scroll position, not frame 0 (see onRefresh in
+            // setPortraitTimeline). No landing trigger below 1024px.
+            const landing = ScrollTrigger.getById('portrait-landing');
             drawn = -1;
-            draw(0);
+            draw(landing ? landing.progress * (count - 1) : 0);
         };
 
         let onResize: (() => void) | undefined;

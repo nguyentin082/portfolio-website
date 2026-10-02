@@ -1,11 +1,19 @@
 import { TextSplitter } from '../../utils/textSplitter';
 import gsap from 'gsap';
 import { lenis } from '../Navbar';
+import { takeSavedScroll } from '../../utils/scrollMemory';
 
 export function initialFX() {
     document.body.style.overflowY = 'auto';
     if (lenis) {
         lenis.start();
+    }
+    // Back to where the reload happened. Scroll events from this jump drive
+    // ScrollTrigger, so the portrait frame and fades follow the position.
+    const savedY = takeSavedScroll();
+    if (savedY) {
+        if (lenis) lenis.scrollTo(savedY, { immediate: true, force: true });
+        else window.scrollTo(0, savedY);
     }
     document.getElementsByTagName('main')[0].classList.add('main-active');
     gsap.to('body', {

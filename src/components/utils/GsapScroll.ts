@@ -41,6 +41,14 @@ export function setPortraitTimeline(draw: DrawFrame, count: number) {
             end: 'bottom top',
             scrub: true,
             invalidateOnRefresh: true,
+            // Every refresh reverts this timeline to frame 0 (drawn through
+            // onUpdate) and then restores its progress without calling
+            // onUpdate. Past .landing-section the progress stays at 1, so
+            // nothing redraws and frame 0 sticks through About and What I Do
+            // (a reload restored mid-page, Work's refresh, fonts, resize).
+            // The head turn spans the whole timeline, so progress maps
+            // straight onto the frame index.
+            onRefresh: (self) => draw(self.progress * (count - 1)),
         },
     });
     const tl2 = gsap.timeline({
