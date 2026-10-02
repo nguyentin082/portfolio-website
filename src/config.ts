@@ -82,25 +82,36 @@ export const config = {
     projects: [
         {
             id: 1,
-            title: 'Drishti',
-            category: 'AI / LLM',
+            title: 'AMAZ Healthcare AI Agent',
+            category: 'AI Agent / LLM / RAG',
             technologies:
-                'Python, PyTorch, Transformers, FastAPI, React, MongoDB',
-            image: '/images/Drishti.png',
+                'Python, FastAPI, LangGraph, LangChain, Milvus, MongoDB, Redis, Langfuse, Prometheus, Docker',
+            image: '/images/amaz-agent.png',
             description:
-                "Vietnam's first intelligent advanced AI chatbot powered by a custom Large Language Model. Features natural language understanding, contextual conversations, and multilingual support including Bengali.",
+                'Production-ready healthcare AI agent platform using a LangGraph supervisor–sub-agent architecture (drug, hospital, info, user-profile agents) with RAG over Milvus. Supports runtime switching between OpenAI, Gemini, Ollama and HuggingFace, Chain/Tree-of-Thought reasoning, Redis-queued distributed document ingestion with Vietnamese NER, safety guardrails (PII, self-harm, injection), and a Langfuse-based evaluation framework.',
             link: 'https://huggingface.co/red1-for-hek/drishti-ilm-x1',
         },
         {
             id: 2,
-            title: 'VoteChain',
-            category: 'Blockchain',
+            title: 'Camera AI Inference Platform',
+            category: 'Computer Vision',
             technologies:
-                'Solidity, Web3.js, React, Ethereum, IPFS, MetaMask, Node.js',
-            image: '/images/VoteChain.png',
+                'Python, PyTorch, ONNX, TensorRT, Triton, DeepStream, FastAPI, Kafka, Qdrant, Redis, DVC',
+            image: '/images/camera-ai.png',
             description:
-                'A decentralized election system built on blockchain technology ensuring transparent, tamper-proof, and verifiable voting. Features smart contracts for vote integrity and real-time result tracking.',
+                'Real-time AI inference platform for a Video Management System covering license plate recognition (ANPR), face recognition with anti-spoofing, and behavior detection. One codebase auto-selects its runtime: TensorRT + Triton on NVIDIA, PyTorch MPS on Apple Silicon, ONNX on CPU. Uses RT-DETR, PP-OCR, SCRFD and ByteTrack, with a sub-5ms Redis/Qdrant fast path for alerts, a Kafka audit pipeline, and a full train → eval → export → model registry workflow.',
             link: 'https://github.com/red1-for-hek/smart-election-by-blockchain',
+        },
+        {
+            id: 3,
+            title: 'Server Monitoring Stack',
+            category: 'DevOps / Observability',
+            technologies:
+                'Docker Compose, Prometheus, Grafana, Loki, Promtail, Node Exporter, cAdvisor, Dozzle',
+            image: '/images/server-monitoring.png',
+            description:
+                'Full observability stack deployed with one Docker Compose command: host and container metrics (Node Exporter, cAdvisor → Prometheus), centralized logs from Docker containers, /var/log and the systemd journal (Promtail → Loki), and auto-provisioned Grafana dashboards. A lightweight agent compose file onboards remote servers for multi-server monitoring.',
+            link: '',
         },
     ],
     contact: {
