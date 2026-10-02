@@ -204,7 +204,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 450px;
+    width: 100%;
 }
 
 .what-border2 {
@@ -476,5 +476,10 @@
 
     .what-box-in {
         margin-left: 0;
+    }
+
+    /* Wider cards, capped so they stay clear of the portrait on the left */
+    .what-content {
+        width: min(620px, 42vw);
     }
 }
