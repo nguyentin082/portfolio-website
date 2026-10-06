@@ -1,0 +1,40 @@
+/*
+ * THEME — every color of the site lives here.
+ * To re-theme, only edit the values below.
+ *
+ * `*Rgb` variables hold "r, g, b" (no rgb()) so they can be used with
+ * custom opacity:  rgba(var(--accentRgb), 0.3)
+ * Keep each `*Rgb` in sync with its hex counterpart.
+ */
+:root {
+    /* Base */
+    --backgroundColor: #0b080c;
+    --backgroundRgb: 11, 8, 12;
+    --textColor: #eae5ec;
+
+    /* Main accent (buttons, highlights, borders, hover glows) */
+    --accentColor: #c2a4ff;
+    --accentRgb: 194, 164, 255;
+
+    /* Accent shades */
+    --accentStrong: #a87cff; /* loading screen */
+    --accentHighlight: #c481ff; /* landing title highlight */
+    --accentVivid: #aa42ff; /* career timeline line & dot */
+    --accentDeep: #7f40ff; /* career timeline gradient */
+
+    /* Career timeline dot glow (inner → outer) */
+    --glowInner: #d29bff;
+    --glowMid: #d097ff;
+    --glowOuter: #f2c0ff;
+
+    /* Custom cursor */
+    --cursorColor: #e6c3ff;
+    --cursorGlow: #af83ff;
+
+    /* Secondary (pink orb on landing / chess page) */
+    --secondaryColor: #fb8dff;
+    --secondaryRgb: 251, 141, 255;
+
+    /* Deep shadow inside orbs */
+    --shadowRgb: 84, 0, 255;
+}
