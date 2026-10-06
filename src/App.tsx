@@ -36,14 +36,14 @@ const App = () => {
                         </Suspense>
                     }
                 />
-                <Route
+                {/* <Route
                     path="/play"
                     element={
                         <Suspense fallback={<div>Loading...</div>}>
                             <Play />
                         </Suspense>
                     }
-                />
+                /> */}
             </Routes>
             <Analytics />
             <SpeedInsights />
