@@ -1,0 +1,131 @@
+.notfound-page {
+    position: relative;
+    min-height: 100vh;
+    min-height: var(--vh);
+    background-color: var(--backgroundColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-align: center;
+}
+
+.notfound-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    max-width: 90vw;
+    max-height: 90vw;
+    border-radius: 50%;
+    background: var(--accentColor);
+    opacity: 0.12;
+    filter: blur(120px);
+    pointer-events: none;
+}
+
+.notfound-content {
+    position: relative;
+    z-index: 1;
+}
+
+.notfound-code {
+    font-size: 180px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 0 10px;
+    color: #fff;
+    letter-spacing: -6px;
+}
+
+.notfound-code span {
+    color: var(--accentColor);
+    display: inline-block;
+    animation: notfound-float 3s ease-in-out infinite;
+}
+
+.notfound-content h2 {
+    font-size: 40px;
+    font-weight: 500;
+    margin: 0 0 15px;
+    color: #fff;
+}
+
+.notfound-content h2 span {
+    color: var(--accentColor);
+}
+
+.notfound-content p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 40px;
+    word-break: break-word;
+}
+
+.notfound-content code {
+    color: var(--accentColor);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+.notfound-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.notfound-actions .back-button {
+    display: inline-block;
+    color: var(--accentColor);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 1px solid var(--accentColor);
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.notfound-actions .back-button:hover {
+    background: var(--accentColor);
+    color: #000;
+}
+
+.notfound-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.notfound-link:hover {
+    color: var(--accentColor);
+}
+
+@keyframes notfound-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .notfound-code {
+        font-size: 110px;
+        letter-spacing: -3px;
+    }
+
+    .notfound-content h2 {
+        font-size: 28px;
+    }
+
+    .notfound-content p {
+        font-size: 16px;
+    }
+}

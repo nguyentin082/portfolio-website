@@ -8,6 +8,7 @@ const Portrait = lazy(() => import('./components/Portrait'));
 const MainContainer = lazy(() => import('./components/MainContainer'));
 const MyWorks = lazy(() => import('./pages/MyWorks'));
 const Play = lazy(() => import('./pages/Play'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 import { LoadingProvider } from './context/LoadingProvider';
 
 const App = () => {
@@ -44,6 +45,14 @@ const App = () => {
                         </Suspense>
                     }
                 /> */}
+                <Route
+                    path="*"
+                    element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <NotFound />
+                        </Suspense>
+                    }
+                />
             </Routes>
             <Analytics />
             <SpeedInsights />
