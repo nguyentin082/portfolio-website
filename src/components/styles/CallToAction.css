@@ -1,7 +1,7 @@
 .cta-section {
     width: 100%;
     padding: 80px 20px;
-    background-color: var(--backgroundColor);
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;

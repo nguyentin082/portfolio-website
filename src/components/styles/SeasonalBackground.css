@@ -1,0 +1,20 @@
+/*
+ * The canvas lives directly in <body>, under #root.
+ * #root gets its own stacking context above it, so all page content
+ * draws on top while sections with transparent backgrounds let it show.
+ */
+.seasonal-background {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+    filter: blur(1.5px);
+}
+
+#root {
+    position: relative;
+    z-index: 1;
+}

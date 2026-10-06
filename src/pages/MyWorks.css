@@ -1,6 +1,6 @@
 .myworks-page {
     min-height: 100vh;
-    background-color: var(--backgroundColor);
+    background-color: transparent;
     padding: 80px 40px;
     box-sizing: border-box;
 }

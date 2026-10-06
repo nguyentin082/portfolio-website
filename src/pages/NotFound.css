@@ -2,7 +2,7 @@
     position: relative;
     min-height: 100vh;
     min-height: var(--vh);
-    background-color: var(--backgroundColor);
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -5,36 +5,120 @@
  * `*Rgb` variables hold "r, g, b" (no rgb()) so they can be used with
  * custom opacity:  rgba(var(--accentRgb), 0.3)
  * Keep each `*Rgb` in sync with its hex counterpart.
+ *
+ * Seasonal palettes are picked by `data-season` on <html>
+ * (set in src/utils/season.ts). Autumn is the default.
  */
+
+/* Shared across all seasons */
 :root {
-    /* Base */
     --backgroundColor: #0b080c;
     --backgroundRgb: 11, 8, 12;
-    --textColor: #eae5ec;
+}
+
+/* AUTUMN (Sep–Nov) — amber & burnt orange. Also the default. */
+:root,
+:root[data-season='autumn'] {
+    --textColor: #fef3e2;
 
     /* Main accent (buttons, highlights, borders, hover glows) */
-    --accentColor: #c2a4ff;
-    --accentRgb: 194, 164, 255;
+    --accentColor: #f4ae52;
+    --accentRgb: 244, 174, 82;
 
     /* Accent shades */
-    --accentStrong: #a87cff; /* loading screen */
-    --accentHighlight: #c481ff; /* landing title highlight */
-    --accentVivid: #aa42ff; /* career timeline line & dot */
-    --accentDeep: #7f40ff; /* career timeline gradient */
+    --accentStrong: #d4621a; /* loading screen */
+    --accentHighlight: #f09a45; /* landing title highlight */
+    --accentVivid: #d4621a; /* career timeline line & dot */
+    --accentDeep: #a8470f; /* career timeline gradient */
 
     /* Career timeline dot glow (inner → outer) */
-    --glowInner: #d29bff;
-    --glowMid: #d097ff;
-    --glowOuter: #f2c0ff;
+    --glowInner: #f4ae52;
+    --glowMid: #e8893a;
+    --glowOuter: #fef3e2;
 
     /* Custom cursor */
-    --cursorColor: #e6c3ff;
-    --cursorGlow: #af83ff;
+    --cursorColor: #fcd9a4;
+    --cursorGlow: #f4ae52;
 
-    /* Secondary (pink orb on landing / chess page) */
-    --secondaryColor: #fb8dff;
-    --secondaryRgb: 251, 141, 255;
+    /* Secondary (orb on landing / chess page) */
+    --secondaryColor: #d4621a;
+    --secondaryRgb: 212, 98, 26;
 
     /* Deep shadow inside orbs */
-    --shadowRgb: 84, 0, 255;
+    --shadowRgb: 42, 26, 14;
+}
+
+/* SPRING (Mar–May) — cherry blossom pink & fresh leaf green */
+:root[data-season='spring'] {
+    --textColor: #fdf2f5;
+
+    --accentColor: #f7a8c4;
+    --accentRgb: 247, 168, 196;
+
+    --accentStrong: #e56b9a;
+    --accentHighlight: #f28bb3;
+    --accentVivid: #e56b9a;
+    --accentDeep: #b83f72;
+
+    --glowInner: #f7a8c4;
+    --glowMid: #ee8fb4;
+    --glowOuter: #fdf2f5;
+
+    --cursorColor: #fcd3e1;
+    --cursorGlow: #f7a8c4;
+
+    --secondaryColor: #8fd694;
+    --secondaryRgb: 143, 214, 148;
+
+    --shadowRgb: 31, 58, 36;
+}
+
+/* SUMMER (Jun–Aug) — tropical sea teal & sunshine yellow */
+:root[data-season='summer'] {
+    --textColor: #effbfb;
+
+    --accentColor: #4fd1c5;
+    --accentRgb: 79, 209, 197;
+
+    --accentStrong: #1fa2c0;
+    --accentHighlight: #3cc4d8;
+    --accentVivid: #1fa2c0;
+    --accentDeep: #0e6e8c;
+
+    --glowInner: #4fd1c5;
+    --glowMid: #3cb8d8;
+    --glowOuter: #effbfb;
+
+    --cursorColor: #b8f0ea;
+    --cursorGlow: #4fd1c5;
+
+    --secondaryColor: #ffcf4a;
+    --secondaryRgb: 255, 207, 74;
+
+    --shadowRgb: 14, 58, 74;
+}
+
+/* WINTER (Dec–Feb) — icy blue & frost white */
+:root[data-season='winter'] {
+    --textColor: #f0f6ff;
+
+    --accentColor: #a8d8ff;
+    --accentRgb: 168, 216, 255;
+
+    --accentStrong: #5b9bd5;
+    --accentHighlight: #8cc4f5;
+    --accentVivid: #5b9bd5;
+    --accentDeep: #2f5f9e;
+
+    --glowInner: #a8d8ff;
+    --glowMid: #7fb8ee;
+    --glowOuter: #f0f6ff;
+
+    --cursorColor: #d6ecff;
+    --cursorGlow: #a8d8ff;
+
+    --secondaryColor: #dbe9ff;
+    --secondaryRgb: 219, 233, 255;
+
+    --shadowRgb: 16, 32, 64;
 }

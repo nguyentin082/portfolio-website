@@ -10,10 +10,12 @@ const MyWorks = lazy(() => import('./pages/MyWorks'));
 const Play = lazy(() => import('./pages/Play'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 import { LoadingProvider } from './context/LoadingProvider';
+import SeasonalBackground from './components/SeasonalBackground';
 
 const App = () => {
     return (
         <BrowserRouter>
+            <SeasonalBackground />
             <Routes>
                 <Route
                     path="/"

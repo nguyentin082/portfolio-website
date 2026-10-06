@@ -4,7 +4,7 @@
     margin-top: 0;
     position: relative;
     z-index: 1;
-    background-color: var(--backgroundColor);
+    background-color: transparent;
     min-height: 60vh;
     display: flex;
     flex-direction: column;
