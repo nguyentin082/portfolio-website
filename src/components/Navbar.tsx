@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HoverLinks from './HoverLinks';
+import { TbBriefcase, TbMail, TbMessageCircle, TbUser } from 'react-icons/tb';
 import { gsap } from 'gsap';
 import Lenis from 'lenis';
 import './styles/Navbar.css';
@@ -76,22 +77,34 @@ const Navbar = () => {
                     className="navbar-connect"
                     data-cursor="disable"
                 >
+                    <span className="nav-icon">
+                        <TbMail />
+                    </span>
                     nguyentin082@gmail.com
                 </a>
                 <ul>
                     <li>
                         <a data-href="#about" href="#about">
                             <HoverLinks text="ABOUT" />
+                            <span className="nav-icon">
+                                <TbUser />
+                            </span>
                         </a>
                     </li>
                     <li>
                         <a data-href="#work" href="#work">
                             <HoverLinks text="WORK" />
+                            <span className="nav-icon">
+                                <TbBriefcase />
+                            </span>
                         </a>
                     </li>
                     <li>
                         <a data-href="#contact" href="#contact">
                             <HoverLinks text="CONTACT" />
+                            <span className="nav-icon">
+                                <TbMessageCircle />
+                            </span>
                         </a>
                     </li>
                 </ul>

@@ -101,3 +101,6 @@ div.resume-button span {
         margin-top: -1.5px;
     }
 }
+.resume-button:hover > span {
+    color: var(--textColor);
+}
