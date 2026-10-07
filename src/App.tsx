@@ -7,7 +7,7 @@ import './App.css';
 const Portrait = lazy(() => import('./components/Portrait'));
 const MainContainer = lazy(() => import('./components/MainContainer'));
 const MyWorks = lazy(() => import('./pages/MyWorks'));
-const Play = lazy(() => import('./pages/Play'));
+// const Play = lazy(() => import('./pages/Play'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 import { LoadingProvider } from './context/LoadingProvider';
 import SeasonalBackground from './components/SeasonalBackground';
