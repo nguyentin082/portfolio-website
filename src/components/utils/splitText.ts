@@ -1,6 +1,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextSplitter } from '../../utils/textSplitter';
+import { isDesktopLayout } from './layout';
 
 interface ParaElement extends HTMLElement {
     anim?: gsap.core.Animation;
@@ -15,7 +16,7 @@ export default function setSplitText() {
     const paras: NodeListOf<ParaElement> = document.querySelectorAll('.para');
     const titles: NodeListOf<ParaElement> = document.querySelectorAll('.title');
 
-    const TriggerStart = window.innerWidth <= 1024 ? 'top 60%' : '20% 60%';
+    const TriggerStart = isDesktopLayout() ? '20% 60%' : 'top 60%';
     const ToggleAction = 'play pause resume reverse';
 
     paras.forEach((para: ParaElement) => {

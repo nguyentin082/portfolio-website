@@ -6,6 +6,7 @@ import {
     useState,
 } from 'react';
 import Loading from '../components/Loading';
+import { isDesktopLayout } from '../components/utils/layout';
 
 interface LoadingType {
     isLoading: boolean;
@@ -17,11 +18,10 @@ export const LoadingContext = createContext<LoadingType | null>(null);
 
 export const LoadingProvider = ({ children }: PropsWithChildren) => {
     const [isLoading, setIsLoading] = useState(() => {
-        // Must match where MainContainer mounts Portrait: below 1024px no
-        // portrait loads, so nothing drives the progress and the loading
-        // screen would hang at 0% forever.
-        if (window.innerWidth <= 1024) return false;
-        return true;
+        // Must match where MainContainer mounts Portrait: outside the desktop
+        // layout no portrait loads, so nothing drives the progress and the
+        // loading screen would hang at 0% forever.
+        return isDesktopLayout();
     });
     const [loading, setLoading] = useState(0);
 
@@ -32,7 +32,7 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
     };
     useEffect(() => {
         // No portrait here, so run the intro animation directly
-        if (window.innerWidth <= 1024) {
+        if (!isDesktopLayout()) {
             import('../components/utils/initialFX').then((module) => {
                 if (module.initialFX) {
                     setTimeout(() => {

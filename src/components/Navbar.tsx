@@ -5,6 +5,7 @@ import { TbBriefcase, TbMail, TbMessageCircle, TbUser } from 'react-icons/tb';
 import { gsap } from 'gsap';
 import Lenis from 'lenis';
 import './styles/Navbar.css';
+import { isDesktopLayout } from './utils/layout';
 
 gsap.registerPlugin(ScrollTrigger);
 export let lenis: Lenis | null = null;
@@ -38,7 +39,7 @@ const Navbar = () => {
         links.forEach((elem) => {
             const element = elem as HTMLAnchorElement;
             element.addEventListener('click', (e) => {
-                if (window.innerWidth > 1024) {
+                if (isDesktopLayout()) {
                     e.preventDefault();
                     const elem = e.currentTarget as HTMLAnchorElement;
                     const section = elem.getAttribute('data-href');

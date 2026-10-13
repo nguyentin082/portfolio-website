@@ -11,18 +11,18 @@ import Work from './Work';
 import TechStackNew from './TechStackNew';
 import CallToAction from './CallToAction';
 import setSplitText from './utils/splitText';
+import { isDesktopLayout } from './utils/layout';
 
 const MainContainer = ({ children }: PropsWithChildren) => {
-    const [isDesktopView, setIsDesktopView] = useState<boolean>(
-        window.innerWidth > 1024,
-    );
+    const [isDesktopView, setIsDesktopView] =
+        useState<boolean>(isDesktopLayout);
     const [isMobile] = useState<boolean>(window.innerWidth <= 768);
     const [shouldRenderCharacter, setShouldRenderCharacter] = useState(false);
 
     useEffect(() => {
         const resizeHandler = () => {
             setSplitText();
-            setIsDesktopView(window.innerWidth > 1024);
+            setIsDesktopView(isDesktopLayout());
         };
         resizeHandler();
         window.addEventListener('resize', resizeHandler);
@@ -31,8 +31,10 @@ const MainContainer = ({ children }: PropsWithChildren) => {
         };
     }, []);
 
+    // Rotating a tablet into landscape switches to the desktop layout, so
+    // the portrait has to be able to mount after the first render too.
     useEffect(() => {
-        if (window.innerWidth <= 1024) return;
+        if (!isDesktopView || shouldRenderCharacter) return;
 
         let timeoutId: ReturnType<typeof setTimeout> | undefined;
         let idleId: number | undefined;
@@ -63,14 +65,18 @@ const MainContainer = ({ children }: PropsWithChildren) => {
                 clearTimeout(timeoutId);
             }
         };
-    }, []);
+    }, [isDesktopView, shouldRenderCharacter]);
 
     return (
         <div className="container-main">
             <Cursor />
             <Navbar />
             <SocialIcons />
-            {isDesktopView && !isMobile && shouldRenderCharacter && children}
+            {/* Once mounted the portrait stays, so rotating a tablet back to
+                landscape shows it at once instead of reloading every frame.
+                Outside the desktop layout CSS hides it and its rebuild on
+                resize skips the desktop timelines. */}
+            {!isMobile && shouldRenderCharacter && children}
             <div className="container-main">
                 <Landing />
                 <About />

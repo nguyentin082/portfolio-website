@@ -75,7 +75,7 @@
         opacity: 1;
     }
 }
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 1025px) and (orientation: landscape) {
     .about-section {
         width: var(--cWidth);
         justify-content: right;

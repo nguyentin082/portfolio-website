@@ -1,4 +1,4 @@
-/* Mobile Photo - hidden by default, shown only at <=1024px */
+/* Mobile Photo - hidden by default, shown only outside the desktop layout */
 .mobile-photo {
     display: none;
 }
@@ -114,11 +114,16 @@
     bottom: 0;
     left: 50%;
     /* Three constraints at once:
-       83vw-133px  keeps the face on screen after the left shift
+       67.3vw-183px keeps the face on screen and clear of the fixed social
+                   icons (right edge ~72px) after the left shift. For About
+                   the box moves left by half its width + 40px, which puts
+                   its left edge at 50vw - S - 40px; the tip of the glasses
+                   in the last frames sits 25.7% into the box. Holding it
+                   96px off the edge: S <= (50vw - 136px) / 0.743.
        103vh-25px  keeps the top of the head (at 6.8%) from being cut
        1000px      upper cap, so it does not balloon on very wide screens */
-    width: min(1000px, 83vw - 133px, 103vh - 25px);
-    height: min(1000px, 83vw - 133px, 103vh - 25px);
+    width: min(1000px, 67.3vw - 183px, 103vh - 25px);
+    height: min(1000px, 67.3vw - 183px, 103vh - 25px);
 }
 
 .portrait-canvas {
@@ -283,7 +288,7 @@ h2.landing-info-h2 {
     }
 }
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1025px) and (orientation: landscape) {
     .landing-intro {
         top: 40%;
         left: auto;
@@ -311,7 +316,7 @@ h2.landing-info-h2 {
     }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1200px) and (orientation: landscape) {
     .landing-intro {
         top: 40%;
         left: auto;
@@ -355,12 +360,13 @@ h2.landing-info-h2 {
 }
 
 /* ---------------------------------------------------------------------------
-   Phones and tablets (<=1024px). Must match MainContainer: the portrait
-   canvas only mounts above 1024px, so everything below stacks name, the
-   static photo and the titles. Kept last so it wins over the base rules
+   Phones and tablets (<=1024px, or any portrait screen). Must match
+   isDesktopLayout(): the portrait canvas only mounts in the desktop layout,
+   so everything else stacks name, the static photo and the titles. Kept last so it wins over the base rules
    above without !important.
    --------------------------------------------------------------------------- */
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1024px),
+    only screen and (orientation: portrait) {
     .portrait-container {
         display: none !important;
     }
@@ -507,7 +513,8 @@ h2.landing-info-h2 {
 }
 
 /* The header lays its links out in a row from 500px and gets shorter */
-@media only screen and (min-width: 500px) and (max-width: 1024px) {
+@media only screen and (min-width: 500px) and (max-width: 1024px),
+    only screen and (min-width: 1025px) and (orientation: portrait) {
     .landing-section {
         padding-top: 84px;
     }

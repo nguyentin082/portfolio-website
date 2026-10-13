@@ -228,7 +228,8 @@
     }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 768px) and (max-width: 1024px),
+    only screen and (min-width: 1025px) and (orientation: portrait) {
     .career-section h2 {
         font-size: 48px;
         line-height: 48px;
@@ -239,7 +240,8 @@
     }
 }
 
-@media only screen and (max-width: 1025px) {
+@media only screen and (max-width: 1025px),
+    only screen and (orientation: portrait) {
     .career-section {
         padding: 70px 0px;
         padding-top: 100px;

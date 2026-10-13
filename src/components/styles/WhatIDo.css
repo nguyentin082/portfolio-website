@@ -323,7 +323,8 @@
     }
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1024px),
+    only screen and (orientation: portrait) {
     .whatIDO {
         height: auto;
         padding: 50px 0px;
@@ -453,7 +454,7 @@
     }
 }
 
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 1025px) and (orientation: landscape) {
     /* The portrait fills the left half of the screen at this width. Stack
        the heading and the cards into one right-hand column instead of two
        side-by-side columns, so both fit in the space that is left without

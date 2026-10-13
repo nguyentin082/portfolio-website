@@ -1,26 +1,14 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import { isDesktopLayout } from './layout';
+
 gsap.registerPlugin(ScrollTrigger);
 
 export type DrawFrame = (index: number) => void;
 
 /** Gap between the portrait's right edge and the left edge of .about-me. */
 const ABOUT_GAP = 40;
-
-/**
- * ScrollTriggers owned by this file. On rebuild (resize) only these may be
- * killed. Killing every trigger would also destroy the ones setSplitText
- * creates, which hold .title/.para at autoAlpha 0 until they fire — every
- * heading and paragraph on the page would disappear.
- */
-export const OWNED_TRIGGERS = [
-    'portrait-landing',
-    'portrait-about',
-    'portrait-exit',
-    'portrait-mobile',
-    'career',
-];
 
 /**
  * Scrubs the portrait frame sequence against scroll.
@@ -62,7 +50,7 @@ export function setPortraitTimeline(draw: DrawFrame, count: number) {
         },
     });
 
-    if (window.innerWidth > 1024) {
+    if (isDesktopLayout()) {
         gsap.set('.portrait-model', { xPercent: -50 });
 
         // The box scales with the viewport, so measure its real width.
@@ -175,7 +163,7 @@ export function setAllTimeline() {
             0,
         );
 
-    if (window.innerWidth > 1024) {
+    if (isDesktopLayout()) {
         careerTimeline.fromTo(
             '.career-section',
             { y: 0 },

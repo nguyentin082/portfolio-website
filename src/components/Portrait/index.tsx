@@ -2,11 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { loadFrames, loadManifest } from './utils/frames';
-import {
-    OWNED_TRIGGERS,
-    setAllTimeline,
-    setPortraitTimeline,
-} from '../utils/GsapScroll';
+import { setAllTimeline, setPortraitTimeline } from '../utils/GsapScroll';
 import { useLoading } from '../../context/LoadingProvider';
 import { setProgress } from '../Loading';
 
@@ -23,6 +19,7 @@ const Portrait = () => {
         let disposed = false;
         let frames: ImageBitmap[] = [];
         let drawn = -1;
+        let scrollCtx: gsap.Context | undefined;
 
         const progress = setProgress((value) => setLoading(value));
 
@@ -35,14 +32,19 @@ const Portrait = () => {
                 ctx.drawImage(frames[i], 0, 0);
             };
             // Timelines are rebuilt on resize, so stale triggers have to go
-            // or they stack up. Only kill our own — the text reveal, work and
-            // contact triggers must survive.
-            OWNED_TRIGGERS.forEach((id) => ScrollTrigger.getById(id)?.kill());
-            setPortraitTimeline(draw, count);
-            setAllTimeline();
+            // or they stack up. Reverting the context kills only our own and
+            // clears the inline styles they left behind, so a tablet rotated
+            // to portrait gets a clean stacked layout; the text reveal, work
+            // and contact triggers live outside it and survive.
+            scrollCtx?.revert();
+            scrollCtx = gsap.context(() => {
+                setPortraitTimeline(draw, count);
+                setAllTimeline();
+            });
             ScrollTrigger.refresh();
             // Match the scroll position, not frame 0 (see onRefresh in
-            // setPortraitTimeline). No landing trigger below 1024px.
+            // setPortraitTimeline). No landing trigger outside the desktop
+            // layout.
             const landing = ScrollTrigger.getById('portrait-landing');
             drawn = -1;
             draw(landing ? landing.progress * (count - 1) : 0);
@@ -99,6 +101,7 @@ const Portrait = () => {
         return () => {
             disposed = true;
             if (onResize) window.removeEventListener('resize', onResize);
+            scrollCtx?.revert();
             frames.forEach((f) => f.close());
         };
     }, []);
